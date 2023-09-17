@@ -1,4 +1,4 @@
-package CloudNativeJava;
+package InheritanceConcept;
 import java.util.Scanner;
 
 interface Staff_Op {
