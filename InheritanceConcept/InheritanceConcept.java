@@ -33,7 +33,7 @@ class Staff extends Person {
 		this.designation = designation;
 	}
 	public void Display() {
-		System.out.println("-----Staff details------")
+		System.out.println("-----Staff details------");
 		System.out.println("Staff Name:" + name);
 		System.out.println("Address:" + address);
 		System.out.println("Phone number:" + phone);
@@ -55,7 +55,7 @@ class Student extends Person {
 		this.fees = fees;
 	}
 	public void Display() {
-		System.out.println("----Student details------")
+		System.out.println("----Student details------");
 		System.out.println("Student Name:" + name);
 		System.out.println("Address:" + address);
 		System.out.println("Phone number:" + phone);
