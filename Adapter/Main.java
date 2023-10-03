@@ -1,64 +1,56 @@
 package Adapter;
 
 interface MediaPlayer {
- void play(String audioType, String fileName);
+	void play(String fileName);
 }
 
 interface AdvancedMediaPlayer {
- void playVlc(String fileName);
- void playMp4(String fileName);
+	void playVideo(String fileName);
 }
 
-class VKPlayer implements AdvancedMediaPlayer {
- @Override
- public void playVlc(String fileName) {
-     // Do nothing (not supported)
- }
+class VLCPlayer implements AdvancedMediaPlayer {
 
- @Override
- public void playMp4(String fileName) {
-     System.out.println("Playing MP4 file: " + fileName);
+	@Override
+ 	public void playVideo(String fileName) {
+		System.out.println("Playing MP4 file: " + fileName);
  }
 }
 
-class Mp4Player implements AdvancedMediaPlayer {
- @Override
- public void playVlc(String fileName) {
-     // Do nothing (not supported)
- }
+class MP4Player implements AdvancedMediaPlayer {
 
- @Override
- public void playMp4(String fileName) {
-     System.out.println("Playing MP4 file: " + fileName);
+	@Override
+	public void playVideo(String fileName) {
+		System.out.println("Playing MP4 file: " + fileName);
  }
 }
 
 class AudioPlayer implements MediaPlayer {
-    private AdvancedMediaPlayer advancedMusicPlayer;
+	public void play(String file) {
+		System.out.println("Playing audio" + file);
+	}
+}
 
-    public AudioPlayer() {
-        advancedMusicPlayer = new Mp4Player();
+class AdapterMedia implements MediaPlayer {
+    private AdvancedMediaPlayer AMP;
+
+    public AdapterMedia(AdvancedMediaPlayer a) {
+        this.AMP = a;
     }
 
     @Override
-    public void play(String audioType, String fileName) {
-        if (audioType.equalsIgnoreCase("mp3")) {
-            System.out.println("Playing MP3 file: " + fileName);
-        } else if (audioType.equalsIgnoreCase("mp4") || audioType.equalsIgnoreCase("vlc")) {
-            advancedMusicPlayer.playMp4(fileName);
-        } else {
-            System.out.println("Invalid media type: " + audioType + " format not supported");
-        }
+    public void play(String fileName) {
+    	System.out.println("AudioVideo file:" + fileName);
+    	AMP.playVideo(fileName);
     }
 }
 
 public class Main {
- public static void main(String[] args) {
-     MediaPlayer audioPlayer = new AudioPlayer();
-
-     audioPlayer.play("mp3", "song.mp3");
-     audioPlayer.play("vlc", "song.vlc");
-     audioPlayer.play("mp4", "song.mp4");
-     audioPlayer.play("avi", "song.avi");
- }
+	public static void main(String[] args) {
+	     MediaPlayer player = new AudioPlayer();
+	     player.play("song.mp3");
+	     player = new AdapterMedia(new VLCPlayer());
+	     player.play("movie.mp4");
+	     player = new AdapterMedia(new MP4Player());
+	     player.play("movie.mkv");
+	}
 }
