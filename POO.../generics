@@ -1,0 +1,71 @@
+package Lab;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Generics {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> integers = new ArrayList<>();
+        List<Double> doubles = new ArrayList<>();
+
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Add Integer");
+            System.out.println("2. Add Double");
+            System.out.println("3. Calculate Integer Sum");
+            System.out.println("4. Calculate Double Sum");
+            System.out.println("5. Sort Integers");
+            System.out.println("6. Sort Doubles");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice:");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter an integer: ");
+                    int intValue = scanner.nextInt();
+                    integers.add(intValue);
+                    break;
+                case 2:
+                    System.out.print("Enter a double: ");
+                    double doubleValue = scanner.nextDouble();
+                    doubles.add(doubleValue);
+                    break;
+                case 3:
+                    double intSum = calculateSum(integers);
+                    System.out.println("Sum of Integers: " + intSum);
+                    break;
+                case 4:
+                    double doubleSum = calculateSum(doubles);
+                    System.out.println("Sum of Doubles: " + doubleSum);
+                    break;
+                case 5:
+                    Collections.sort(integers);
+                    System.out.println("Sorted Integers: " + integers);
+                    break;
+                case 6:
+                    Collections.sort(doubles);
+                    System.out.println("Sorted Doubles: " + doubles);
+                    break;
+                case 7:
+                    System.out.println("Exiting program.");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public static double calculateSum(List<? extends Number> numbers) {
+        double sum = 0;
+        for (Number number : numbers) {
+            sum += number.doubleValue();
+        }
+        return sum;
+    }
+}
